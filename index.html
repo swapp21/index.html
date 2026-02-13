@@ -1,38 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>For My Love ❤️</title>
+<title>For Tanu ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
 <style>
 body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 50px 60px;
+  border-radius: 20px;
   text-align: center;
-  font-family: Arial;
-  background-color: #ffebf0;
-  margin-top: 100px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
 }
+
 h1 {
-  font-size: 40px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 48px;
+  margin-bottom: 15px;
 }
+
+p {
+  font-size: 18px;
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.question {
+  margin-top: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
 button {
-  font-size: 20px;
-  padding: 10px 20px;
-  margin: 20px;
+  font-size: 18px;
+  padding: 12px 28px;
+  margin: 15px;
   cursor: pointer;
+  border: none;
+  border-radius: 30px;
+  transition: 0.3s;
 }
+
+#yes {
+  background: white;
+  color: #ff4d88;
+  font-weight: 600;
+}
+
+#yes:hover {
+  transform: scale(1.1);
+}
+
 #no {
-  position: absolute;
+  background: #333;
+  color: white;
+  position: absolute; /* SAME AS YOUR WORKING VERSION */
+}
+
+.heart {
+  position: fixed;
+  top: -10px;
+  color: white;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh); }
 }
 </style>
 </head>
+
 <body>
 
-<h1>Will you be my Valentine? ❤️</h1>
+<div class="card">
+  <h1>Tanu ❤️</h1>
+  <p>Your light brown eyes make you look sooo beautiful 😍</p>
+  <p>Every time I look at you, I fall for you all over again 🥺</p>
+  <p class="question">Will you be my Valentine? 💖</p>
 
-<button onclick="yesClicked()">Yes 💖</button>
-<button id="no" onmouseover="moveNo()">No 😜</button>
+  <button onclick="yesClicked()" id="yes">Yes 💘</button>
+  <button id="no" onmouseover="moveNo()">No 😜</button>
+</div>
 
 <script>
 function yesClicked() {
-  document.body.innerHTML = "<h1>Yayyyyy!!! ❤️😍 I love you!!! 💕</h1>";
+  document.body.innerHTML = `
+  <div style="text-align:center; color:white; font-family:Poppins;">
+    <h1 style="font-family:'Dancing Script'; font-size:50px;">YAYYY TANU!!! ❤️😍</h1>
+    <p style="font-size:22px;">You just made Swapnil the happiest guy alive 🥹💕</p>
+    <p style="font-size:20px;">I promise to always admire those beautiful light brown eyes forever 😘</p>
+  </div>
+  `;
+  startHearts();
 }
 
 function moveNo() {
@@ -40,6 +117,19 @@ function moveNo() {
   var y = Math.random() * window.innerHeight;
   document.getElementById('no').style.left = x + "px";
   document.getElementById('no').style.top = y + "px";
+}
+
+function startHearts() {
+  setInterval(function(){
+    var heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
 }
 </script>
 
