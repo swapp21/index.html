@@ -28,6 +28,7 @@ body {
   width: 90%;
   max-width: 500px;
   animation: fadeIn 1.5s ease;
+  position: relative;
 }
 
 h1 {
@@ -49,8 +50,9 @@ p {
 }
 
 .buttons {
-  margin-top: 25px;
+  margin-top: 30px;
   position: relative;
+  height: 60px;
 }
 
 button {
@@ -61,6 +63,7 @@ button {
   cursor: pointer;
   margin: 10px;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 #yes {
@@ -104,17 +107,34 @@ button {
 
 <div class="card">
   <h1>Tanu ❤️</h1>
-  <p>Your brown eyes and your soft cheeks make you look sooo beautiful and cute 😍</p>
+  <p>Your light brown eyes make you look sooo beautiful 😍</p>
   <p>Every time I look at you, I fall for you all over again 🥺</p>
   <p class="question">Will you be my Valentine, Tanu? 💖</p>
 
-  <div class="buttons">
+  <div class="buttons" id="buttonArea">
     <button id="yes" onclick="yesClicked()">Yes 💘</button>
-    <button id="no" onmouseover="moveNo()">No 🙈</button>
+    <button id="no">No 🙈</button>
   </div>
 </div>
 
 <script>
+const noBtn = document.getElementById("no");
+const buttonArea = document.getElementById("buttonArea");
+
+noBtn.addEventListener("mouseover", function() {
+  const areaRect = buttonArea.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const maxX = areaRect.width - btnRect.width;
+  const maxY = areaRect.height - btnRect.height;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+});
+
 function yesClicked() {
   document.body.innerHTML = `
   <div style="text-align:center; color:white; font-family:Poppins;">
@@ -124,13 +144,6 @@ function yesClicked() {
   </div>
   `;
   startHearts();
-}
-
-function moveNo() {
-  var x = Math.random() * window.innerWidth;
-  var y = Math.random() * window.innerHeight;
-  document.getElementById('no').style.left = x + "px";
-  document.getElementById('no').style.top = y + "px";
 }
 
 function startHearts() {
