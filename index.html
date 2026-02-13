@@ -119,32 +119,34 @@ button {
 
 <script>
 const noBtn = document.getElementById("no");
-const card = document.querySelector(".card");
 
-card.addEventListener("mousemove", function(e) {
-  const rect = card.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+// Always use fixed positioning
+noBtn.style.position = "fixed";
 
-  const distanceX = Math.abs(e.clientX - (btnRect.left + btnRect.width / 2));
-  const distanceY = Math.abs(e.clientY - (btnRect.top + btnRect.height / 2));
+document.addEventListener("mousemove", function(e) {
+  const rect = noBtn.getBoundingClientRect();
 
-  // If mouse gets close to NO button → teleport it
-  if (distanceX < 80 && distanceY < 50) {
-    moveNo();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  const distanceX = Math.abs(e.clientX - centerX);
+  const distanceY = Math.abs(e.clientY - centerY);
+
+  // If mouse comes close → move instantly
+  if (distanceX < 120 && distanceY < 80) {
+    moveButton();
   }
 });
 
-function moveNo() {
-  const rect = card.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
+function moveButton() {
+  const padding = 10; // keeps safe margin from edges
 
-  const maxX = rect.width - btnRect.width - 20;
-  const maxY = rect.height - btnRect.height - 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
   const randomX = Math.random() * maxX;
   const randomY = Math.random() * maxY;
 
-  noBtn.style.position = "absolute";
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
 }
@@ -173,7 +175,6 @@ function startHearts() {
   }, 300);
 }
 </script>
-
 
 </body>
 </html>
