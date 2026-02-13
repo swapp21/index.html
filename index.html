@@ -119,30 +119,36 @@ button {
 
 <script>
 const noBtn = document.getElementById("no");
+const buttonArea = document.getElementById("buttonArea");
 
-// Always use fixed positioning
-noBtn.style.position = "fixed";
+// Make sure it's positioned inside the button area
+noBtn.style.position = "absolute";
 
-document.addEventListener("mousemove", function(e) {
-  const rect = noBtn.getBoundingClientRect();
+buttonArea.addEventListener("mousemove", function(e) {
+  const areaRect = buttonArea.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
 
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+  const centerX = btnRect.left + btnRect.width / 2;
+  const centerY = btnRect.top + btnRect.height / 2;
 
   const distanceX = Math.abs(e.clientX - centerX);
   const distanceY = Math.abs(e.clientY - centerY);
 
-  // If mouse comes close → move instantly
-  if (distanceX < 120 && distanceY < 80) {
-    moveButton();
+  // If mouse comes near → jump
+  if (distanceX < 100 && distanceY < 60) {
+    moveInsideArea();
   }
 });
 
-function moveButton() {
-  const padding = 10; // keeps safe margin from edges
+function moveInsideArea() {
+  const areaWidth = buttonArea.clientWidth;
+  const areaHeight = buttonArea.clientHeight;
 
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
+
+  const maxX = areaWidth - btnWidth;
+  const maxY = areaHeight - btnHeight;
 
   const randomX = Math.random() * maxX;
   const randomY = Math.random() * maxY;
