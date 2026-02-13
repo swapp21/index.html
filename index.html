@@ -127,11 +127,10 @@ function yesClicked() {
 }
 
 function moveNo() {
-  const button = document.getElementById("no");
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 50);
-  button.style.left = x + "px";
-  button.style.top = y + "px";
+  var x = Math.random() * window.innerWidth;
+  var y = Math.random() * window.innerHeight;
+  document.getElementById('no').style.left = x + "px";
+  document.getElementById('no').style.top = y + "px";
 }
 
 function startHearts() {
