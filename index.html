@@ -119,21 +119,30 @@ button {
 
 <script>
 const noBtn = document.getElementById("no");
-const buttonArea = document.getElementById("buttonArea");
 
-noBtn.addEventListener("mouseover", function() {
-  const areaRect = buttonArea.getBoundingClientRect();
+document.addEventListener("mousemove", function(e) {
   const btnRect = noBtn.getBoundingClientRect();
 
-  const maxX = areaRect.width - btnRect.width;
-  const maxY = areaRect.height - btnRect.height;
+  const distanceX = Math.abs(e.clientX - (btnRect.left + btnRect.width / 2));
+  const distanceY = Math.abs(e.clientY - (btnRect.top + btnRect.height / 2));
+
+  // If mouse gets close → teleport anywhere on screen
+  if (distanceX < 100 && distanceY < 60) {
+    moveNoAnywhere();
+  }
+});
+
+function moveNoAnywhere() {
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
 
   const randomX = Math.random() * maxX;
   const randomY = Math.random() * maxY;
 
+  noBtn.style.position = "fixed";
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
-});
+}
 
 function yesClicked() {
   document.body.innerHTML = `
