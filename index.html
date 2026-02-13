@@ -119,27 +119,32 @@ button {
 
 <script>
 const noBtn = document.getElementById("no");
+const card = document.querySelector(".card");
 
-document.addEventListener("mousemove", function(e) {
+card.addEventListener("mousemove", function(e) {
+  const rect = card.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
 
   const distanceX = Math.abs(e.clientX - (btnRect.left + btnRect.width / 2));
   const distanceY = Math.abs(e.clientY - (btnRect.top + btnRect.height / 2));
 
-  // If mouse gets close → teleport anywhere on screen
-  if (distanceX < 100 && distanceY < 60) {
-    moveNoAnywhere();
+  // If mouse gets close to NO button → teleport it
+  if (distanceX < 80 && distanceY < 50) {
+    moveNo();
   }
 });
 
-function moveNoAnywhere() {
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
+function moveNo() {
+  const rect = card.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const maxX = rect.width - btnRect.width - 20;
+  const maxY = rect.height - btnRect.height - 20;
 
   const randomX = Math.random() * maxX;
   const randomY = Math.random() * maxY;
 
-  noBtn.style.position = "fixed";
+  noBtn.style.position = "absolute";
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
 }
@@ -168,6 +173,7 @@ function startHearts() {
   }, 300);
 }
 </script>
+
 
 </body>
 </html>
