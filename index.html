@@ -81,6 +81,17 @@ button {
   left: 60%;
   top: 40%;
 }
+.heart {
+  position: fixed;
+  top: -10px;
+  color: white;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh); }
+}
+
 </style>
 </head>
 
@@ -102,7 +113,7 @@ button {
 const noBtn = document.getElementById("no");
 const area = document.getElementById("area");
 
-// Move FAST when mouse comes near
+// Fast movement inside card
 area.addEventListener("mousemove", function(e) {
   const rect = noBtn.getBoundingClientRect();
 
@@ -136,8 +147,25 @@ function yesClicked() {
     <p style="font-size:20px;">I promise to always admire those beautiful light brown eyes forever 😘</p>
   </div>
   `;
+
+  startHearts(); // 🔥 Start animation after replacing content
+}
+
+function startHearts() {
+  setInterval(function(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
 }
 </script>
+
 
 </body>
 </html>
